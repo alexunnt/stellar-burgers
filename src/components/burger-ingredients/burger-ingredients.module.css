@@ -52,6 +52,7 @@
 .scrolled {
     overflow: scroll;
     overflow-x: hidden;
+    height: 664px;
 }
 
 .scrolled::-webkit-scrollbar {
