@@ -2,6 +2,8 @@ import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 
+import data from '../../utils/data';
+
 import appStyles from './app.module.css';
 
 function App() {
@@ -9,8 +11,8 @@ function App() {
     <div className={appStyles.app}>
       <AppHeader />
       <div className={appStyles.burgerConstructor}>
-        <BurgerIngredients />
-        <BurgerConstructor />
+        <BurgerIngredients data={data} />
+        <BurgerConstructor data={data} />
       </div>
     </div >
   );
