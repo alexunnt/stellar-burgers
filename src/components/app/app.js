@@ -1,12 +1,29 @@
+import { useEffect, useState } from 'react';
+
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 
-import data from '../../utils/data';
+import api from '../../utils/api';
 
 import appStyles from './app.module.css';
 
 function App() {
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    api.getItems()
+      .then(res => {
+        setData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  // console.log(data);
+
   return (
     <div className={appStyles.app}>
       <AppHeader />

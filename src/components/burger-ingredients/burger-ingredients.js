@@ -1,7 +1,7 @@
 import React from 'react';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import PropTypes from 'prop-types';
-import menuItemPropTypes from '../../utils/constants';
+import { menuItemPropTypes } from '../../utils/constants';
 
 import { Tab, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
