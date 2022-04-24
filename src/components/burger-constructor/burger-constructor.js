@@ -4,12 +4,12 @@ import { menuItemPropTypes } from '../../utils/constants';
 
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerConstructor({ data }) {
+function BurgerConstructor({ data, setOrder }) {
 
     // console.log(data[0]);
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} className={`${burgerConstructorStyles.main} ml-10 pt-25`}>
-            {/* <div className='ml-8'>
+            <div className='ml-8'>
                 <ConstructorElement
                     type="top"
                     isLocked={true}
@@ -17,7 +17,7 @@ function BurgerConstructor({ data }) {
                     price={data[0].price}
                     thumbnail={data[0].image}
                 />
-            </div> */}
+            </div>
 
             <div className={`${burgerConstructorStyles.items} ${burgerConstructorStyles.scrolled}`}>
                 {data.map((item) => {
@@ -36,7 +36,7 @@ function BurgerConstructor({ data }) {
                 })}
             </div>
 
-            {/* <div className='ml-8'>
+            <div className='ml-8'>
                 <ConstructorElement
                     type="bottom"
                     isLocked={true}
@@ -44,14 +44,14 @@ function BurgerConstructor({ data }) {
                     price={data[0].price}
                     thumbnail={data[0].image}
                 />
-            </div> */}
+            </div>
 
             <div className={`${burgerConstructorStyles.order} mt-10`}>
                 <div className={`${burgerConstructorStyles.price} mr-10`}>
                     <p className={`${burgerConstructorStyles.amount} text text_type_digits-medium`}>610</p>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button type="primary" size="large">
+                <Button type="primary" size="large" onClick={setOrder}>
                     Оформить заказ
                 </Button>
             </div>

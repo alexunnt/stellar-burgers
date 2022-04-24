@@ -5,7 +5,7 @@ import { menuItemPropTypes } from '../../utils/constants';
 
 import { Tab, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerIngredients({ data }) {
+function BurgerIngredients({ data, setIngredientInModal }) {
     const [current, setCurrent] = React.useState('one');
 
     return (
@@ -29,7 +29,7 @@ function BurgerIngredients({ data }) {
                     {data.map((item) => {
                         if (item.type === "bun") {
                             return (
-                                <div key={item._id} className={`${burgerIngredientsStyles.item} ml-4`}>
+                                <div key={item._id} className={`${burgerIngredientsStyles.item} ml-4`} onClick={setIngredientInModal}>
                                     <img src={item.image} alt={item.name} />
                                     <div className={`${burgerIngredientsStyles.price} mt-1 mb-1`}>
                                         <p className={`${burgerIngredientsStyles.digits} text text_type_digits-default`}>{item.price}</p>
@@ -83,7 +83,8 @@ function BurgerIngredients({ data }) {
 }
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(menuItemPropTypes.isRequired).isRequired
+    data: PropTypes.arrayOf(menuItemPropTypes.isRequired).isRequired,
+    setIngredientInModal: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients;
