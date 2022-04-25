@@ -29,8 +29,6 @@ function App() {
       });
   }, []);
 
-  // console.log(data);
-
   return (
     <>
       <div className={appStyles.app}>
@@ -45,7 +43,7 @@ function App() {
             <OrderDetails />
           </Modal>
         )}
-        
+
         {ingredientInModal && (
           <Modal title='Детали ингредиента' closeModal={closeIngredientModal}>
             <IngredientDetails ingredientData={ingredientInModal} />
