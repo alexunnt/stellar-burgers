@@ -1,6 +1,6 @@
 import orderDetailsStyles from './order-details.module.css';
 
-import doneImage from '../../images/done.png';
+import doneImage from '../../images/done_clean.png';
 
 function OrderDetails() {
     return (
