@@ -1,6 +1,6 @@
 import ingredientDetailsStyles from './ingredient-details.module.css';
 
-// import menuItemPropTypes from '../../utils/constants';
+import { menuItemPropTypes } from '../../utils/constants';
 
 function IngredientDetails({ ingredientData }) {
     const { image_large, name, calories, fat, proteins, carbohydrates } = ingredientData;
@@ -31,8 +31,8 @@ function IngredientDetails({ ingredientData }) {
     )
 }
 
-// IngredientDetails.propTypes = {
-//     ingredientData: menuItemPropTypes.isRequired
-// }
+IngredientDetails.propTypes = {
+    ingredientData: menuItemPropTypes.isRequired
+}
 
 export default IngredientDetails;

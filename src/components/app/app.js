@@ -45,6 +45,7 @@ function App() {
             <OrderDetails />
           </Modal>
         )}
+        
         {ingredientInModal && (
           <Modal title='Детали ингредиента' closeModal={closeIngredientModal}>
             <IngredientDetails ingredientData={ingredientInModal} />

@@ -29,7 +29,7 @@ function BurgerIngredients({ data, setIngredientInModal }) {
                     {data.map((item) => {
                         if (item.type === "bun") {
                             return (
-                                <div key={item._id} className={`${burgerIngredientsStyles.item} ml-4`} onClick={setIngredientInModal}>
+                                <div key={item._id} className={`${burgerIngredientsStyles.item} ml-4`} onClick={setIngredientInModal(item)}>
                                     <img src={item.image} alt={item.name} />
                                     <div className={`${burgerIngredientsStyles.price} mt-1 mb-1`}>
                                         <p className={`${burgerIngredientsStyles.digits} text text_type_digits-default`}>{item.price}</p>
@@ -47,7 +47,7 @@ function BurgerIngredients({ data, setIngredientInModal }) {
                     {data.map((item) => {
                         if (item.type === "sauce") {
                             return (
-                                <div key={item._id} className={`${burgerIngredientsStyles.item} ml-4`}>
+                                <div key={item._id} className={`${burgerIngredientsStyles.item} ml-4`} onClick={setIngredientInModal(item)}>
                                     <img src={item.image} alt={item.name} className={burgerIngredientsStyles.image} />
                                     <div className={`${burgerIngredientsStyles.price} mt-1 mb-1`}>
                                         <p className={`${burgerIngredientsStyles.digits} text text_type_digits-default`}>{item.price}</p>
@@ -65,7 +65,7 @@ function BurgerIngredients({ data, setIngredientInModal }) {
                     {data.map((item) => {
                         if (item.type === "main") {
                             return (
-                                <div key={item._id} className={`${burgerIngredientsStyles.item} ml-4`}>
+                                <div key={item._id} className={`${burgerIngredientsStyles.item} ml-4`} onClick={setIngredientInModal(item)}>
                                     <img src={item.image} alt={item.name} className={burgerIngredientsStyles.image} />
                                     <div className={`${burgerIngredientsStyles.price} mt-1 mb-1`}>
                                         <p className={`${burgerIngredientsStyles.digits} text text_type_digits-default`}>{item.price}</p>
