@@ -7,6 +7,8 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 
+import { DataContext } from '../../services/dataContext';
+
 import api from '../../utils/api';
 
 import appStyles from './app.module.css';
@@ -35,7 +37,9 @@ function App() {
         <AppHeader />
         <div className={appStyles.burgerConstructor}>
           <BurgerIngredients data={data} setIngredientInModal={setIngredientInModal} />
-          <BurgerConstructor data={data} setOrder={setOrder} />
+          <DataContext.Provider value={data}>
+            <BurgerConstructor setOrder={setOrder} />
+          </DataContext.Provider>
         </div>
 
         {order && (

@@ -1,10 +1,12 @@
 import burgerConstructorStyles from './burger-constructor.module.css';
 import PropTypes from 'prop-types';
-import { menuItemPropTypes } from '../../utils/constants';
 
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useContext } from 'react';
+import { DataContext } from '../../services/dataContext';
 
-function BurgerConstructor({ data, setOrder }) {
+function BurgerConstructor({ setOrder }) {
+    const data = useContext(DataContext);
 
     return (
         <>
@@ -65,7 +67,6 @@ function BurgerConstructor({ data, setOrder }) {
 }
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(menuItemPropTypes.isRequired).isRequired,
     setOrder: PropTypes.func.isRequired
 }
 
