@@ -20,6 +20,7 @@ function App() {
   const closeOrderModal = () => setOrder(null);
   const [ingredientInModal, setIngredientInModal] = useState(null);
   const closeIngredientModal = () => setIngredientInModal(null)
+  const [numberOfOrder, setNumberOfOrder] = useState(0);
 
   useEffect(() => {
     api.getItems()
@@ -31,6 +32,12 @@ function App() {
       });
   }, []);
 
+  function sendOrder() {
+    api.setOrder()
+      .then(res => setNumberOfOrder(res));
+    setOrder(true);
+  }
+
   return (
     <>
       <div className={appStyles.app}>
@@ -38,15 +45,16 @@ function App() {
         <div className={appStyles.burgerConstructor}>
           <BurgerIngredients data={data} setIngredientInModal={setIngredientInModal} />
           <DataContext.Provider value={data}>
-            <BurgerConstructor setOrder={setOrder} />
+            <BurgerConstructor setOrder={sendOrder} />
           </DataContext.Provider>
         </div>
 
         {order && (
           <Modal closeModal={closeOrderModal}>
-            <OrderDetails />
+            <OrderDetails numberOfOrder={numberOfOrder} />
           </Modal>
-        )}
+        )
+        }
 
         {ingredientInModal && (
           <Modal title='Детали ингредиента' closeModal={closeIngredientModal}>
