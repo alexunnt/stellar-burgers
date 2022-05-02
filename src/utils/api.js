@@ -14,19 +14,19 @@ class Api {
     }
 
     getItems() {
-        return fetch(this._baseUrl)
+        return fetch(`${this._baseUrl}/ingredients`)
             .then(res => this._getRes(res));
     }
 
-    setOrder() {
-        return fetch("https://norma.nomoreparties.space/api/orders", {
+    setOrder(ids) {
+        return fetch(`${this._baseUrl}/orders`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(this._bodyPost),
+            body: JSON.stringify(ids),
         })
-        .then(res => res.json())
+        .then(res => this._getRes(res))
         .then(res => res.order.number)
     }
 }

@@ -2,28 +2,32 @@ import burgerConstructorStyles from './burger-constructor.module.css';
 import PropTypes from 'prop-types';
 
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useContext, useReducer, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../../services/dataContext';
+import { IdsContext } from '../../services/idsContext';
 
 function BurgerConstructor({ setOrder }) {
     const data = useContext(DataContext);
+    const [ids, setIds] = useContext(IdsContext);
 
-    const amountInitialState = { amount: 2510 };
+    const [sum, setSum] = useState(0);
 
-    function reducer(amountState, action) {
-        switch (action.type) {
-            case "set":
-                return { amount: amountState.count + action.payload };
-            default:
-                throw new Error(`Wrong type of action: ${action.type}`);
-        }
-    }
+    useEffect(() => {
+        let totalSum = 0;
+        let arrayOfids = [];
+        const priceOfBuns = 2510;
 
-    const [amountState, amountDispatcher] = useReducer(reducer, amountInitialState, undefined);
+        data.map((item) => {
+            if (item.type !== "bun") {
+                totalSum += item.price;
+                arrayOfids.push(item._id);
+            }
+        });
+        
+        setSum(priceOfBuns + totalSum);
+        setIds({ ingredients: arrayOfids });
+    }, [data, setSum]);
 
-    // useEffect(() => {
-    //     amountDispatcher({type: "set"});
-    // }, []);
 
     return (
         <>
@@ -43,7 +47,6 @@ function BurgerConstructor({ setOrder }) {
                         <div className={`${burgerConstructorStyles.items} ${burgerConstructorStyles.scrolled}`}>
                             {data.map((item) => {
                                 if (item.type !== "bun") {
-                                    amountDispatcher({type: "set"});
                                     return (
                                         <div key={item._id} className={`${burgerConstructorStyles.element} mt-4 mr-4`}>
                                             <DragIcon type="primary" />
@@ -70,7 +73,7 @@ function BurgerConstructor({ setOrder }) {
 
                         <div className={`${burgerConstructorStyles.order} mt-10`}>
                             <div className={`${burgerConstructorStyles.price} mr-10`}>
-                                <p className={`${burgerConstructorStyles.amount} text text_type_digits-medium`}>{amountState.amount}</p>
+                                <p className={`${burgerConstructorStyles.amount} text text_type_digits-medium`}>{sum}</p>
                                 <CurrencyIcon type="primary" />
                             </div>
                             <Button type="primary" size="large" onClick={setOrder}>

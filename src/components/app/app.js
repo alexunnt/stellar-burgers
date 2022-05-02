@@ -8,6 +8,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 
 import { DataContext } from '../../services/dataContext';
+import { IdsContext } from '../../services/idsContext';
 
 import api from '../../utils/api';
 
@@ -21,6 +22,8 @@ function App() {
   const [ingredientInModal, setIngredientInModal] = useState(null);
   const closeIngredientModal = () => setIngredientInModal(null)
   const [numberOfOrder, setNumberOfOrder] = useState(0);
+  const idsState = useState({ ingredients: [] });
+   const [ids, setIds] = idsState;
 
   useEffect(() => {
     api.getItems()
@@ -33,8 +36,11 @@ function App() {
   }, []);
 
   function sendOrder() {
-    api.setOrder()
-      .then(res => setNumberOfOrder(res));
+    api.setOrder(ids)
+      .then(res => setNumberOfOrder(res))
+      .catch((error) => {
+        console.log(error);
+      });
     setOrder(true);
   }
 
@@ -45,7 +51,9 @@ function App() {
         <div className={appStyles.burgerConstructor}>
           <BurgerIngredients data={data} setIngredientInModal={setIngredientInModal} />
           <DataContext.Provider value={data}>
-            <BurgerConstructor setOrder={sendOrder} />
+            <IdsContext.Provider value={idsState}>
+              <BurgerConstructor setOrder={sendOrder} />
+            </IdsContext.Provider>
           </DataContext.Provider>
         </div>
 
