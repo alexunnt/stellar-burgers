@@ -1,10 +1,33 @@
 import burgerConstructorStyles from './burger-constructor.module.css';
 import PropTypes from 'prop-types';
-import { menuItemPropTypes } from '../../utils/constants';
 
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useContext, useEffect, useState } from 'react';
+import { DataContext } from '../../services/dataContext';
+import { IdsContext } from '../../services/idsContext';
 
-function BurgerConstructor({ data, setOrder }) {
+function BurgerConstructor({ setOrder }) {
+    const data = useContext(DataContext);
+    const [ids, setIds] = useContext(IdsContext);
+
+    const [sum, setSum] = useState(0);
+
+    useEffect(() => {
+        let totalSum = 0;
+        let arrayOfids = [];
+        const priceOfBuns = 2510;
+
+        data.map((item) => {
+            if (item.type !== "bun") {
+                totalSum += item.price;
+                arrayOfids.push(item._id);
+            }
+        });
+        
+        setSum(priceOfBuns + totalSum);
+        setIds({ ingredients: arrayOfids });
+    }, [data, setSum]);
+
 
     return (
         <>
@@ -50,7 +73,7 @@ function BurgerConstructor({ data, setOrder }) {
 
                         <div className={`${burgerConstructorStyles.order} mt-10`}>
                             <div className={`${burgerConstructorStyles.price} mr-10`}>
-                                <p className={`${burgerConstructorStyles.amount} text text_type_digits-medium`}>610</p>
+                                <p className={`${burgerConstructorStyles.amount} text text_type_digits-medium`}>{sum}</p>
                                 <CurrencyIcon type="primary" />
                             </div>
                             <Button type="primary" size="large" onClick={setOrder}>
@@ -65,7 +88,6 @@ function BurgerConstructor({ data, setOrder }) {
 }
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(menuItemPropTypes.isRequired).isRequired,
     setOrder: PropTypes.func.isRequired
 }
 

@@ -7,6 +7,9 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 
+import { DataContext } from '../../services/dataContext';
+import { IdsContext } from '../../services/idsContext';
+
 import api from '../../utils/api';
 
 import appStyles from './app.module.css';
@@ -18,6 +21,9 @@ function App() {
   const closeOrderModal = () => setOrder(null);
   const [ingredientInModal, setIngredientInModal] = useState(null);
   const closeIngredientModal = () => setIngredientInModal(null)
+  const [numberOfOrder, setNumberOfOrder] = useState(0);
+  const idsState = useState({ ingredients: [] });
+   const [ids, setIds] = idsState;
 
   useEffect(() => {
     api.getItems()
@@ -29,20 +35,34 @@ function App() {
       });
   }, []);
 
+  function sendOrder() {
+    api.setOrder(ids)
+      .then(res => setNumberOfOrder(res))
+      .catch((error) => {
+        console.log(error);
+      });
+    setOrder(true);
+  }
+
   return (
     <>
       <div className={appStyles.app}>
         <AppHeader />
         <div className={appStyles.burgerConstructor}>
           <BurgerIngredients data={data} setIngredientInModal={setIngredientInModal} />
-          <BurgerConstructor data={data} setOrder={setOrder} />
+          <DataContext.Provider value={data}>
+            <IdsContext.Provider value={idsState}>
+              <BurgerConstructor setOrder={sendOrder} />
+            </IdsContext.Provider>
+          </DataContext.Provider>
         </div>
 
         {order && (
           <Modal closeModal={closeOrderModal}>
-            <OrderDetails />
+            <OrderDetails numberOfOrder={numberOfOrder} />
           </Modal>
-        )}
+        )
+        }
 
         {ingredientInModal && (
           <Modal title='Детали ингредиента' closeModal={closeIngredientModal}>
